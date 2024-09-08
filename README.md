@@ -32,9 +32,8 @@ Enter command mode by pressing **F10**. The following commands are available:
 3. Use the hotkeys and command mode to control the auto-clicker.
 
 ## Up and coming
-- [ ] Toggle Click Type (Left/Right Clicks)
-- [ ] Hold Down Feature
-- [ ] Move Mouse Cursor (To a specific coordinate)
+- [X] Toggle Click Type (Left/Right Clicks)
+- [X] Hold Down Feature
 - [ ] Precompiled EXE Files For Releases*
 
 If you would like for me to implement other features, please lmk.
