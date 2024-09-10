@@ -3,15 +3,34 @@
 #include <stdlib.h>
 #include <string.h>
 
-void successTone() {
+void successToneOn() {
     // Success: A short, high-pitched tone
     Beep(1000, 200);  // Frequency: 1000 Hz, Duration: 200 ms
     Beep(1200, 150);  // Frequency: 1200 Hz, Duration: 150 ms
 }
 
-void errorTone() {
+void errorToneOn() {
     // Error: A lower-pitched, longer tone
     Beep(500, 500);   // Frequency: 500 Hz, Duration: 500 ms
+}
+
+void noTone(){}
+
+void (*successTone)() = successToneOn;
+void (*errorTone)() = errorToneOn;
+BOOL soundEnabled = TRUE;
+
+void toggleSound() {
+    if (soundEnabled) {
+        successTone = noTone;
+        errorTone = noTone;
+        printf("Sound disabled\n");
+    } else {
+        successTone = successToneOn;
+        errorTone = errorToneOn;
+        printf("Sound enabled\n");
+    }
+    soundEnabled = !soundEnabled;
 }
 
 void saveSettings(INT delay, BOOL rClick, BOOL hold) {
@@ -51,11 +70,13 @@ void loadSettings(INT *delay, BOOL *rClick, BOOL *hold) {
 }
 
 int main() {
-	BOOL click = FALSE;
+	// settings
 	BOOL rClick = FALSE;
 	BOOL hold = FALSE;
-	BOOL cmdMode = FALSE;
 	INT DELAY = 100;
+	
+	BOOL click = FALSE;
+	BOOL cmdMode = FALSE;
 
 	printf("anga, another generic autoclicker.\n--- hotkeys ---\n F7        start\n F8        end\n F9        exit the autoclicker\n F10       command mode \n---------------\ncredits:\n made FULLY by dLL44.\n---------------\nlogs\n---------------\n");
 	loadSettings(&DELAY, &rClick, &hold);
@@ -116,6 +137,7 @@ int main() {
 					printf(" hold        hold down instead of clicking\n");
 					printf(" save        save current settings\n");
 					printf(" load        if autoload doesn't work; load settings\n");
+					printf(" tsound		 toggle sound on and off");
 				} else if (strcmp(cmd, "exit") == 0) {
 					cmdMode = FALSE;
 					printf("exited cmdmode\n");
@@ -131,6 +153,8 @@ int main() {
 					saveSettings(DELAY, rClick, hold);
 				} else if (strcmp(cmd, "load") == 0) {
 					loadSettings(&DELAY, &rClick, &hold);
+				} else if (strcmp(cmd, "tsound") == 0) {
+					toggleSound();
 				}
 			}
 		}
