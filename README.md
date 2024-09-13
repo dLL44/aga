@@ -35,6 +35,7 @@ Enter command mode by pressing **F10**. The following commands are available:
 - [X] Toggle Click Type (Left/Right Clicks)
 - [X] Hold Down Feature
 - [X] Precompiled EXE Files For Releases*
+- [X] Toggle sound (beeps) on and off
 
 If you would like for me to implement other features, please lmk.
 
