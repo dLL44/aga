@@ -33,7 +33,7 @@ void toggleSound() {
     soundEnabled = !soundEnabled;
 }
 
-void saveSettings(INT delay, BOOL rClick, BOOL hold) {
+void saveSettings(INT delay, BOOL rClick, BOOL hold, BOOL soundEnabled) {
 	FILE *file = fopen("settings.conf", "w");
 	if (file == NULL) {
 		printf("Err saving\n");
@@ -43,15 +43,17 @@ void saveSettings(INT delay, BOOL rClick, BOOL hold) {
 	fprintf(file, "DELAY=%d\n", delay);
 	fprintf(file, "RCLICK=%d\n", rClick);
 	fprintf(file, "HOLD=%d\n", hold);
+	fprintf(file, "SOUND=%d\n", soundEnabled);
 	fclose(file);
 	printf("settings saved\n");
 	successTone();
 	printf("delay is %d ms\n", delay);
 	printf("right click is %s\n", rClick ? "on" : "off");
 	printf("hold is %s\n", hold ? "on" : "off");
+	printf("sound is %s\n", soundEnabled ? "on" : "off");
 }
 
-void loadSettings(INT *delay, BOOL *rClick, BOOL *hold) {
+void loadSettings(INT *delay, BOOL *rClick, BOOL *hold, BOOL *soundEnabled) {
 	FILE *file = fopen("settings.conf", "r");
 	if (file == NULL) {
 		printf("settings.conf doesnt exist, using default values\n");
@@ -61,12 +63,14 @@ void loadSettings(INT *delay, BOOL *rClick, BOOL *hold) {
 	fscanf(file, "DELAY=%d\n", delay);
 	fscanf(file, "RCLICK=%d\n", rClick);
 	fscanf(file, "HOLD=%d\n", hold);
+	fscanf(file, "SOUND=%d\n", soundEnabled);
 	fclose(file);
 	printf("loaded settings.\n");
 	successTone();
 	printf("delay is %d ms\n", *delay);
 	printf("right click is %s\n", *rClick ? "on" : "off");
 	printf("hold is %s\n", *hold ? "on" : "off");
+	printf("sound is %s\n", *soundEnabled ? "on" : "off");
 }
 
 int main() {
@@ -79,7 +83,7 @@ int main() {
 	BOOL cmdMode = FALSE;
 
 	printf("anga, another generic autoclicker.\n--- hotkeys ---\n F7        start\n F8        end\n F9        exit the autoclicker\n F10       command mode \n---------------\ncredits:\n made FULLY by dLL44.\n---------------\nlogs\n---------------\n");
-	loadSettings(&DELAY, &rClick, &hold);
+	loadSettings(&DELAY, &rClick, &hold, &soundEnabled);
 	while (TRUE) {
 		if (GetAsyncKeyState(VK_F7) & 0x8000 && cmdMode == FALSE) {
 			click = TRUE;
@@ -150,9 +154,9 @@ int main() {
 					printf("holding down val is now %s\n", hold ? "on" : "off");
 					successTone();
 				} else if (strcmp(cmd, "save") == 0) {
-					saveSettings(DELAY, rClick, hold);
+					saveSettings(DELAY, rClick, hold, soundEnabled);
 				} else if (strcmp(cmd, "load") == 0) {
-					loadSettings(&DELAY, &rClick, &hold);
+					loadSettings(&DELAY, &rClick, &hold, &soundEnabled);
 				} else if (strcmp(cmd, "tsound") == 0) {
 					toggleSound();
 				}
