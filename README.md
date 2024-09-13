@@ -24,6 +24,11 @@ Enter command mode by pressing **F10**. The following commands are available:
 - **end**: Stop the auto-clicker
 - **help**: Display help information
 - **exit**: Exit command mode
+- **toggle**: Toggle between left and right click
+- **hold**: Hold down the mousebutton instead of constant clicking
+- **save**: Save the current session's settings
+- **load**: Load saved settings from a previous session
+- **tsound**: Toggle success and error beeps.
 
 ## Usage
 
